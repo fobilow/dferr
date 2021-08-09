@@ -7,21 +7,23 @@ import (
 	"os"
 )
 
-func ExampleThis() {
+func ExampleFunc() {
 	f, err := os.OpenFile("dferr.go", os.O_RDONLY, os.ModePerm)
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer dferr.This(f.Close)
+	defer dferr.Func(f.Close)
 	// Output:
 }
 
-func ExampleThisWithHandler() {
+func ExampleFuncWithHandler() {
 	f, err := os.OpenFile("dferr.go", os.O_RDONLY, os.ModePerm)
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer dferr.ThisWithHandler(f.Close, func(err error) {
+
+	// Below is equivalent to defer log.Println(f.Close())
+	defer dferr.FuncWithHandler(f.Close, func(err error) {
 		log.Println(err)
 	})
 	// Output:
